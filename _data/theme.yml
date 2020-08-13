@@ -1,5 +1,5 @@
 # Theme Skin
-skin: default # default, night, plum, sea, soft, steel
+skin: night # default, night, plum, sea, soft, steel
 
 # Theme Text
 t:
@@ -32,7 +32,12 @@ google_fonts:
 # Link to specific internal pages in the navigation.
 # Create a custom list to override the default setting of including links to all
 # pages that have a `title`. Add raw page paths in the order you'd like.
-
 navigation_pages:
-  - about.md
-  - cv.md
+  - algorithm_categroy.md
+  - computer_architecture_category.md
+  - data_communication_category.md
+  - data_mining_category.md
+  - data_structure_category.md
+  - java_category.md
+  - multimedia_category.md
+  - os_category.md

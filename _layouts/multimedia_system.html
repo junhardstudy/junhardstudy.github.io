@@ -1,0 +1,25 @@
+---
+layout: category
+taxonomy: multimedia_course
+---
+
+{% include page-intro.html %}
+
+<main id="main" class="page-content" aria-label="Content">
+  <div class="inner">
+    <div class="entry-wrap">
+      <div class="entry-content">
+        {{ content }}
+      </div>
+      <aside class="entry-sidebar">
+        {% include author %}
+        {% if author_picture %}
+          <img class="author-picture" src="{{ author_picture }}" alt="{{ author_name }}">
+        {% endif %}
+      </aside>
+    </div>
+	<div>
+	테스트 중입니다.
+	</div>
+  </div>
+</main>
