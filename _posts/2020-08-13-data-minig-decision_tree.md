@@ -5,6 +5,8 @@ excerpt: "Data Mining에서 supervised learning인 classification에서 decision
 last_modified_at: 2020-08-08T11:27:01-05:00
 categories:
   - data_mining_course
+  
+use_math: true
 
 ---
 
@@ -23,3 +25,133 @@ categories:
 * internal node : 정확히 하나의 들어오는 edge와 2개 또는 그 이상의 나가는 edges를 가지고 있습니다. 또한 데이터들이 가지는 특정 attribute에 대해 조건(<strong>condition</strong>)에 따라 나누는(split) 역할을 합니다. 
 
 * leaf or terminal node : 단 하나의 들어오는 edge만 있고 나가는 edge는 없는 노드로서 <strong>class label</strong>을 대표합니다.
+
+최적의 split attribute condition을 찾기 위한 attribute test condition방법에서 impurity가 사용됩니다.
+특정 노드 t의 impurity값은
+1. [$GINI(t) = 1 - \sum_{j}[P(j\|t)]^{2}$](#gini)
+
+2. [$Entropy(t) = -\sum_{j}P(j\|t)\log{_{2}P(j\|t)}$](#entropy)
+
+3. [$Error(t) = 1 - max_{j}P(j\|t)$](#error)
+
+위 impurity 값이 최소가 되는 방향으로, 
+또는 GAIN값이 최대가 되는 방향으로 split condition을 정하게 됩니다.
+
+---
+
+
+
+<div id="gini"></div>
+## GINI index
+CART, SLIQ, SPRINT 알고리즘에서 사용되며, impurity와 k개의 분할에 대한 Gini index에 가중치가 적용된 Gini split은 각각 아래와 같습니다.
+
+#### $GINI(t) = 1 - \sum_{j}[P(j\|t)]^{2}$
+
+#### $GINI_{split} =  \sum_{i = 1}^{k}\frac{n_{i}}{n}GINI(i)$
+
+Example)
+
+
+<table>
+	<th>버섯갓모양     </th>
+	<tr>
+		<td>단추, 반구 모양</td>
+		<td>원뿔 모양</td>
+	</tr>
+	<tr>
+		<td>9</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>6</td>
+	</tr>
+</table>
+
+<div id="entropy"></div>
+## Entropy
+ID3, C4.5 알고리즘에서 사용되며, impurity와 Gain split 값은 아래와 같습니다. 
+
+#### $Entropy(t) = -\sum_{j}P(j\|t)\log{_{2}P(j\|t)}$
+
+#### $GAIN_{split} = Entropy(p) -(\sum_{i = 1}^{k}\frac{n_{i}}{n}Entropy(i))$
+###### ( Entropy(p) : before split )
+
+Example)
+
+
+<table>
+	<th>버섯갓모양     </th>
+	<tr>
+		<td>단추, 반구 모양</td>
+		<td>원뿔 모양</td>
+	</tr>
+	<tr>
+		<td>9</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>6</td>
+	</tr>
+</table>
+
+
+<div id="error"></div>
+## Error
+
+#### $Error(t) = 1 - max_{j}P(j\|t)$
+
+Example)
+
+
+<table>
+	<th>버섯갓모양     </th>
+	<tr>
+		<td>단추, 반구 모양</td>
+		<td>원뿔 모양</td>
+	</tr>
+	<tr>
+		<td>9</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>6</td>
+	</tr>
+</table>
+
+문제는 이러한 impurity 값을 작게 하기 위해 최대한 split 가지수를 많이 늘릴수도 있습니다. 가령, 극단적인 예시의 경우 데이터에서 각각의 record가 고유한 id를 가질 때 
+split condition으로 id에 대해 record개수 만큼 split을 하게 된다면 impurity값은 작아지겠지만 우리가 얻고자 하는 유의미한 모델은 아니게 됩니다. 따라서 이러한
+split에 대해 제약을 주기 위해 SplitINFO가 사용 됩니다.
+
+#### $SplitINFO = -\sum_{i = 1}^{k}\frac{n_{i}}{n}log\frac{n_{i}}{n}$
+
+따라서 split에 대한 제약이 적용된 gain은
+
+#### $GainRATIO_{split} = \frac{GAIN_{split}}{SplitINFO}$
+
+<table border="1" style="text-align:center">
+	<tr>
+		<td style="border-bottom:none; border-right:none"></td>
+		<td colspan="2">버섯갓모양</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>단추, 반구 모양</td>
+		<td>원뿔 모양</td>
+	</tr>
+	<tr>
+		<td>식용 버섯</td>
+		<td>9</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>독 버섯</td>
+		<td>2</td>
+		<td>6</td>
+	</tr>
+</table>
+
+
+

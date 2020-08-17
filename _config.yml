@@ -37,6 +37,10 @@ algolia:
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
 theme: jekyll-theme-basically-basic
 plugins: # previsously gems
   - jekyll-feed
@@ -83,4 +87,6 @@ defaults:
     values:
       layout: post
       read_time: true
+
+
 
