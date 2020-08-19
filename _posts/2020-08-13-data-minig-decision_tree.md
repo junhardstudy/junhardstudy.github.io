@@ -17,7 +17,9 @@ use_math: true
 
 ***
 ## Decision Tree
-가령 독버섯에 대한 decision tree 모델에 대해 시각화를 하면 위와 같습니다.
+
+가령 독버섯에 대한 decision tree 모델에 대해 예시를 들면 아래와 같습니다.
+![decision_tree_example_image1](/image/decision_tree_ex1.jpg)
 
 
 * root node: decision tree의 가장 상단에 있는 노드로서, 들어오는 edge는 없고 0개 이상의 edge(s)를 포함하는 노드 입니다.
@@ -51,24 +53,26 @@ CART, SLIQ, SPRINT 알고리즘에서 사용되며, impurity와 k개의 분할�
 
 Example)
 
+![결정트리예시사진2](/image/decision_tree_ex2.jpg)
 
-<table>
-	<th>버섯갓모양     </th>
-	<tr>
-		<td>단추, 반구 모양</td>
-		<td>원뿔 모양</td>
-	</tr>
-	<tr>
-		<td>9</td>
-		<td>3</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>6</td>
-	</tr>
-</table>
+
+왼쪽 leaf node를 t1, 오른쪽 leaf node를 t2라 하면,
+
+<div style="border:2px solid; max-width: 500px;">
+$GINI(t1) = 1 - ( (\frac{9}{11})^2 + (\frac{2}{11})^2) = 0.297$
+<br>
+$GINI(t2) = 1 - ( (\frac{3}{9})^2 + (\frac{6}{9})^2) = 0.444$
+<br>
+<br>
+$GINI_{split} = \frac{11}{20} \times 0.297 + \frac{9}{20} \times 0.444 = 0.363$
+<br>
+</div>
+<br>
 
 <div id="entropy"></div>
+
+***
+
 ## Entropy
 ID3, C4.5 알고리즘에서 사용되며, impurity와 Gain split 값은 아래와 같습니다. 
 
@@ -77,49 +81,55 @@ ID3, C4.5 알고리즘에서 사용되며, impurity와 Gain split 값은 아래�
 #### $GAIN_{split} = Entropy(p) -(\sum_{i = 1}^{k}\frac{n_{i}}{n}Entropy(i))$
 ###### ( Entropy(p) : before split )
 
+#### Entropy가 가지는 의미
+
 Example)
 
+![결정트리예시사진2](/image/decision_tree_ex2.jpg)
 
-<table>
-	<th>버섯갓모양     </th>
-	<tr>
-		<td>단추, 반구 모양</td>
-		<td>원뿔 모양</td>
-	</tr>
-	<tr>
-		<td>9</td>
-		<td>3</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>6</td>
-	</tr>
-</table>
+
+왼쪽 leaf node를 t1, 오른쪽 leaf node를 t2라 하면,
+
+<div style="border:2px solid; max-width: 500px;">
+$Entropy(t1) = - (\frac{9}{11}log_{2}\frac{9}{11} + \frac{2}{11}log_{2}\frac{2}{11} ) = 0.684$
+<br>
+$Entropy(t2) = - (\frac{3}{9}log_{2}\frac{3}{9} + \frac{6}{9}log_{2}\frac{6}{9}) = 0.918$
+<br>
+<br>
+$Entropy(p) = - (\frac{12}{20}log_{2}\frac{12}{20} + \frac{8}{20}log_{2}\frac{8}{20} ) = 0.971$
+$Gain_{split} = 0.971 - (\frac{11}{20} \times 0.684 + \frac{9}{20} \times 0.918) = 0.1817$
+<br>
+</div>
+<br>
 
 
 <div id="error"></div>
-## Error
+
+***
+
+## Misclassification Error
 
 #### $Error(t) = 1 - max_{j}P(j\|t)$
 
 Example)
 
+![결정트리예시사진2](/image/decision_tree_ex2.jpg)
 
-<table>
-	<th>버섯갓모양     </th>
-	<tr>
-		<td>단추, 반구 모양</td>
-		<td>원뿔 모양</td>
-	</tr>
-	<tr>
-		<td>9</td>
-		<td>3</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>6</td>
-	</tr>
-</table>
+
+왼쪽 leaf node를 t1, 오른쪽 leaf node를 t2라 하면,
+
+<div style="border:2px solid; max-width: 700px;">
+$Error(t1) = classification Error(t1) = 1 - max( \frac{9}{11}, \frac{2}{11}) = 1 - \frac{9}{11} = 0.1818$
+<br>
+$Error(t2) = classification Error(t1) = 1 - max( \frac{3}{9}, \frac{6}{9}) = 1 - \frac{6}{9} = 0.333$
+<br>
+<br>
+$Error(Split) = \frac{11}{20} \times 0.182 + \frac{9}{20} \times 0.333 = 0.250$
+
+</div>
+<br>
+
+***
 
 문제는 이러한 impurity 값을 작게 하기 위해 최대한 split 가지수를 많이 늘릴수도 있습니다. 가령, 극단적인 예시의 경우 데이터에서 각각의 record가 고유한 id를 가질 때 
 split condition으로 id에 대해 record개수 만큼 split을 하게 된다면 impurity값은 작아지겠지만 우리가 얻고자 하는 유의미한 모델은 아니게 됩니다. 따라서 이러한
@@ -131,27 +141,16 @@ split에 대해 제약을 주기 위해 SplitINFO가 사용 됩니다.
 
 #### $GainRATIO_{split} = \frac{GAIN_{split}}{SplitINFO}$
 
-<table border="1" style="text-align:center">
-	<tr>
-		<td style="border-bottom:none; border-right:none"></td>
-		<td colspan="2">버섯갓모양</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>단추, 반구 모양</td>
-		<td>원뿔 모양</td>
-	</tr>
-	<tr>
-		<td>식용 버섯</td>
-		<td>9</td>
-		<td>3</td>
-	</tr>
-	<tr>
-		<td>독 버섯</td>
-		<td>2</td>
-		<td>6</td>
-	</tr>
-</table>
+Example)GINI index 예제에 splitINFO를 적용하면,
+
+<div style="border:2px solid; max-width: 500px;">
+$ SplitINFO = - ( \frac{11}{20}log_{2}\frac{11}{20} + \frac{9}{20}log_{2}\frac{9}{20} ) = $
+<br>
+$ GAIN_{split} = 1 - ()나누기전 $
+<br>
+$ GainRATIO_{split} = \frac{}{}$
+</div>
+<br>
 
 
-
+![결정트리예시사진2](/image/test.jpg)
