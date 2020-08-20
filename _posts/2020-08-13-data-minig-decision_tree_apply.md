@@ -65,6 +65,6 @@ decision tree 블록의 mod output port를 apply model 블록의 mod input port�
 ![결정트리결과](/image/decision_tree_images/result.jpg)
 전체 2,437개의 example중에서 2,434개를 올바르게 예측 하였고, 나머지 3개의 example이 잘못된 예측을 하였습니다.
 <br>
-![결정트리 wrong 결과](/image/decision_tree_images/wrong.jpg)
+![결정트리 wrong 결과](/image/decision_tree_images/wrong.JPG)
 <br>
 버섯 데이터 출처 : https://www.kaggle.com/uciml/mushroom-classification/
