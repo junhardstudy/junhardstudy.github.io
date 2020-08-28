@@ -180,7 +180,7 @@ sequential covering approach
 3. Remove training instaces coverd by the rule.
 4. Repeat step (2) and (3) untile stopping criterion is method
 
-##### What is Learn-one-rule function? <br> 최대한 많은 positive examples를, 최대한 적은 negative example을 가지도록 하는 rule을 찾아 내는 것.
+##### What is Learn-one-rule function? <br> 최대한 많은 positive examples를, 또는 최대한 적은 negative example을 가지도록 하는 rule을 찾아 내는 것.
 
 그렇다면 어떤 rule이 best rule인지 평가할 수 있는 척도가 필요함.
 <br>
@@ -189,16 +189,61 @@ sequential covering approach
 
 ### Metrics for rule evaluation
 
-rule에 대해 평가를 하기 위한 척도
-
+rule에 대한 평가를 하기 위한 척도
+<div style="border:2px solid; width: 700px;">
 1. Accuracy = $\frac{n_{c}}{n}$
-
+<br>
 2. Laplace = $\frac{n_{c} + 1}{n + k}$
-
-3. M-estimate =  $\frac{n_{c} + k_{p}}{n + k}$
-
+<br>
+3. M-estimate =  $\frac{n_{c} + kp}{n + k}$
+<br>
 4. FOIL's information gaine = $P_{1} \times (log_{2}\frac{P_{1}}{P_{1} + n_{1}} - log_{2}\frac{P_{0}}{P_{0} + n_{0}})$
-
+<br>
+</div>
+<div style="border:2px solid; width: 700px;">
+$ n $: rule에 의해 cover된 instance의 개수 
+<br>
+$ n_{c} $: rule에 의해 cover된 instance들 중에서 올바르게 분류된 instance의 개수
+<br>
+$ k $: class의 개수 
+<br>
+$ p $: prior probability 
+<br>
+$ P_{0} $: (before adding a new conjunct) positive instance 개수
+<br>
+$ n_{0} $: (before adding a new conjunct) negative instance 개수
+<br>
+$ P_{1} $: (after adding a new conjunct) positive instance 개수
+<br>
+$ n_{1} $: (after adding a new conjunct) negative instance 개수
+</div>
+<br>
+Example)
+<div style="border:2px solid; width: 700px;">
+Training set은 50개의 positive 와 100개의 negative example을 가지며, 아래와 같은 rule이 있을 때 각 matrics의 value는?
+<br>
+<br>
+ * r1 : covers 20 positive and 5 negative examples
+ <br>
+ * r2 : covers 5 positive and 1 negative examples
+ <br>
+ <br>
+ Accuracy$_{r1} = \frac{20}{25} = 0.8$
+ <br>
+ Accuracy$_{r2} = \frac{5}{6} = $
+ <br>
+ <br>
+ Laplace$_{r1} = \frac{20 + 1}{25 + 2} = \frac{21}{27} = $
+ <br>
+ Laplace$_{r2} = \frac{5 + 1}{6 + 2} = \frac{6}{8} = 0.75$
+ <br>
+ <br>
+ FOIL's information gain$_{r1} = 20 \times (log_{2}\frac{20}{20+5} - log_{2}\frac{50}{50+100})= $
+ <br>
+ FOIL's information gain$_{r2} = 5 \times (log_{5}\frac{20}{5+1} - log_{2}\frac{50}{50+100}) = $
+ 
+</div>
+<br>
 마지막으로 그렇다면, rule 생성을 언제 까지 해야 하는가?
 <br>
 
@@ -211,7 +256,9 @@ rule에 대해 평가를 하기 위한 척도
 
 2. 계산된 gain, 또는 accuracy에 변화가 없을 때 stop하거나 다른 rule 생성을 시작
 
-#### Rule pruning : generalization errors를 개선하는데 이용될 수 있음.
+#### Rule pruning
+* generalization errors를 개선하는데 이용될 수 있음.
+* decision tree의 post-pruning과 비슷
 <br>
 
 ***
