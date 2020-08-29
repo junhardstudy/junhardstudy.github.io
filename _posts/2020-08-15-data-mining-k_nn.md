@@ -34,6 +34,8 @@ unseen data의 label을 분류, 예측.
 * k = 1일 때, 가장 가까운 하나의 training record의 class label을 채택. 하지만 그 training data가 outlier data여서 잘못 분류, 예측을 하게 될 수도 있음. 따라서 K를 2개 이상 선택
 * K > 1일 때, voting에 의해 결정하며 보통 동점(tie)이 나오는 상황을 방지하고자 K는 홀 수를 사용.
 
+***
+
 ### Measures of proximity
 
 K-NN 알고리즘의 핵심은 test record와 가장 가까운 training record 사이에 <strong>거리를 측정하는 것</strong>
@@ -48,9 +50,22 @@ K-NN 알고리즘의 핵심은 test record와 가장 가까운 training record �
   * Jaccard similarity
   * Cosine similarity
   
+***
+
+
 #### Distance
 
 n차원에서 두 점 사이의 거리
+<br>
+Example)
+<br>
+two data $X_{1} = (3, 2, 5, 2)$, $X_{2} = (7, 2, 1, 2)$가 있을 때,
+<br>
+
+distance =  $\sqrt{(-4)^{2} + (0)^{2} + (4)^{2} + (0)^{2}} = 4\sqrt{2} = 5.656$
+
+<br>
+
 <br>
 각 attribute사이에서 단위가 다를 수 있으므로, 그런 경우 <strong>Normalization</strong>이 필요함
 
@@ -60,12 +75,36 @@ $ X_{normalized} = {X-min(X)}/max(X)$
 2. Z-transformation : 모든 attribute들이 평균이 0이고 표준 편차가 1인 값을 가지도록 rescale.
 $ X_{normalized} = {X - mean(X)}/std(X)$
 
+<br>
+<br>
+
 이 외에도 Manhatten/Chebyshev distance가 있음.
 1. Manhatten : 각각의 attribute의 차의 절댓값을 더한 것.
 
 2. Chebyshev : 각각의 attributed의 차이 중에서 최댓(max)값.
 
+Example)
+<br>
+two data $X_{1} = (3, 2, 5, 2)$, $X_{2} = (7, 2, 1, 2)$가 있을 때,
+<br>
+<br>
+&nbsp;&nbsp; Manhatten distance = $\|3-7\|+\|2-2\|+\|5-1\|+\|2-2\| = 8$
+<br>
+<br>
+&nbsp;&nbsp; Chebyshev distance = max(\|3-7\|, \|2-2\|, \|5-1\|) = 4$
+<br>
+
+***
+
 #### Correlation
+
+두 data X, Y에 대해 각 attribute 사이의 <strong>linear relationship에 대한 척도</strong>
+
+##### Definition
+<br>
+Pearson Correlation($X, Y$) = 
+
+***
 
 #### Similarity
 
@@ -81,3 +120,5 @@ voting은 다음과 같이 적용 됨.
 1. Majority vote을 사용. 즉, K개의 가까운 것들 중에서 다수의 class labels를 채택
 
 2. 거리에 따른 weighted vote을 사용. 즉, 먼 거리일수록 voting에 영향을 적게 받도록 함. 
+
+#### Weight
