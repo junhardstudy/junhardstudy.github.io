@@ -118,8 +118,7 @@ $S_{XY} = \frac{1}{n-1} \sum_{i = 1}{n}(x_{i} - \overline{x})(y_{i} - \overline{
 *주의)위 수식에서 확률 변수 X, Y의 편차와 분산은 <strong>모집단의 편차, 분산이 아님</strong>!
 </div>
 <br>
-![positive correlation 예시 그래프]()
-![negative correlation 예시 그래프]()
+![positive and negative correlation 예시 그래프](/image/positiveandnegativecorrelation.jpg)
 <br>
 <br>
 

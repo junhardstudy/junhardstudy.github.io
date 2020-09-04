@@ -14,7 +14,7 @@ use_math: true
 
 ### Perceptron
 
-![퍼셉트론 모델 사진]()
+![퍼셉트론 모델 사진](/image/perceptron.jpg)
 
 * Simple neural network architectrue for learning a binary claasifier.
 
@@ -97,7 +97,7 @@ Example)두 개의 Input에 대한 AND 문제
 
 XOR 문제와 같이, 기존의 perceptron으로는 선형적으로 분리할 수 없는 문제를 해결할 수 없음
 <br>
-![MLP 예시 사진]()
+![MLP 예시 사진](/image/MLP.jpg)
 <br>
 * 한 개 이상의 hidden layer를 거쳐서 output을 생성.
 
@@ -119,7 +119,7 @@ XOR 문제와 같이, 기존의 perceptron으로는 선형적으로 분리할 �
    
    * Gradient descent : $w_{j} \leftarrow w_{j} - \lambda \frac{\partial E(\overrightarrow{w})}{\partial w_{j}}$
    
-   * ![경사하강법 예시그림]()
+   * ![경사하강법 예시그림](/image/gradient_descent.jpg)
   
 <br>
 <br>
